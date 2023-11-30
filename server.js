@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
   console.log('a user connected. id - ' + socket.id) ;
   
   socket.on('new_message', (message) =>{
-    io.emit('message', message)
+    // io.emit('message', message)
+    console.log(message)
   })
 });
