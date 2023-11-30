@@ -11,9 +11,10 @@ form.addEventListener('submit', function(e){
         input.value = ''
     }
 })
-socket.on('massage', function(msg){
-    var item = document.createElement('li')
-    item.textContent = msg
-    message.appendChild(item)
-    window.scrollTo(0, document.body.scrollHeight)
-})
+socket.on('message', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    message.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+
+});
