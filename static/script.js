@@ -3,6 +3,7 @@ const socket = io()
 const form = document.getElementById('form')
 const input = document.getElementById('input')
 const message = document.getElementById('message')
+const bttnNick = document.getElementById('buttnNick')
 
 form.addEventListener('submit', function(e){
     e.preventDefault()
@@ -16,5 +17,8 @@ socket.on('message', function(msg) {
     item.textContent = msg;
     message.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
-
 });
+
+bttnNick.addEventListener('click', function(hjh){
+    prompt('ghg')
+})

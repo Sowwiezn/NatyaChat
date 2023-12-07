@@ -53,3 +53,8 @@ li {
     font-size: 1.5rem;
     margin: 0.5rem;
 }
+#buttnNick{
+    background-color: #0026ca;
+    color: #ffffff;
+    border: 1px solid white;
+}
