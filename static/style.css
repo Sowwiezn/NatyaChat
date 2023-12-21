@@ -4,34 +4,40 @@
     box-sizing: border-box;
     font-family: monospace;
 }
+
 main {
     position: relative;
-    height: 100vh;  /* ЦЕ ВАЖЛИВИЙ РЯДОК */
+    height: 100vh;
 }
-#header{
-    background-color: #304ffe;    
-    width: 100%;
-    height: 4.5rem;
-}
-.headerWebsite {
+
+.header {
     position: fixed;
     padding: 1rem;
-    margin-left: 200px;
+    text-align: center;
+    width: 100%;
     font-size: 2rem;
+    background-color: #304ffe;
     color: #ffffff;
+    height: 4.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
+
 #form {
     position: fixed;
     bottom: 0;
     width: 100%;
     display: flex;
 }
+
 #input {
     width: 100%;
     height: 4.5rem;
     padding: 1rem;
     font-size: 1.5rem;
 }
+
 .submit {
     background-color: #304ffe;
     color: #ffffff;
@@ -40,6 +46,7 @@ main {
     font-size: 1.5rem;
     border: 0;
 }
+
 ul {
     list-style: none;
     padding: 5rem 0;
@@ -47,6 +54,7 @@ ul {
     flex-direction: column;
     align-items: flex-start;
 }
+
 li {
     background-color: #0026ca;
     border-radius: 1rem;
@@ -54,10 +62,4 @@ li {
     padding: 1rem;
     font-size: 1.5rem;
     margin: 0.5rem;
-}
-#buttnNick{
-    background-color: #0026ca;
-    color: #ffffff;
-    border: 1px solid white;
-    
 }
