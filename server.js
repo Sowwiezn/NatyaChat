@@ -6,12 +6,15 @@ const db = require('./database');
 const indexHtmlFile = fs.readFileSync(path.join(__dirname, 'static', 'index.html'));
 const scriptFile = fs.readFileSync(path.join(__dirname, 'static', 'script.js'));
 const styleFile = fs.readFileSync(path.join(__dirname, 'static', 'style.css'));
+const regist = fs.readFileSync(path.join(__dirname, 'static', 'register.html'))
+
 
 const server = http.createServer((req, res) => {
     switch(req.url) {
         case '/': return res.end(indexHtmlFile);
         case '/script.js': return res.end(scriptFile);
         case '/style.css': return res.end(styleFile);
+        case '/register': return res.end(regist)
     }
     return res.end('Error 404');
 });
@@ -20,6 +23,7 @@ const server = http.createServer((req, res) => {
 server.listen(3000);
 
 const { Server } = require("socket.io");
+const { register } = require('module');
 const io = new Server(server);
 
 io.on('connection', async (socket) => {
