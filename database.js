@@ -70,3 +70,13 @@ module.exports = {
     );
   }
 };
+  isUserExist: async (login) =>{
+    const candidate = await db.alL(`SELECT * FROM user WHERE login = ?`, [login])
+    return !!candidate.lenght
+}
+  addUser: async (user) => {
+  await db.run(
+    `INSERT INTO user (login, password) VALUES (?, ?)`,
+    [user.login, user.password]
+  );
+}

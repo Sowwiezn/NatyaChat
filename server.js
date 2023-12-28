@@ -19,6 +19,30 @@ const server = http.createServer((req, res) => {
     return res.end('Error 404');
 });
 
+function registerUser(req, res){
+  let data = ''
+  req.on(function(chunk){
+    data += chunk
+  })
+  req.on('end', async function(){
+    console.log(data)
+  
+  try{
+    const user = JSON.parse(data)
+    if(!user.login || user.password){
+      return res.end('Empty login or password.')
+    }
+    if(await db.isUserExIst(user.login)){
+      return res.end('User already exis.')
+    }
+    await db.addUser(user)
+    return res.end('Registeration is successfull')
+  }
+  catch(e){
+    return res.end('Error' + e)
+  }
+})
+}
 
 server.listen(3000);
 
