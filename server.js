@@ -119,3 +119,13 @@ io.on('connection', async (socket) => {
     io.emit('message', userNickname + ': ' + message);
   });
 });
+
+io.use((socket, next) =>{
+  const cookie = socket.handshake.auth.cookie
+  const credentionals = getCredentionals(cookie)
+  if(!credentionals){
+    next(new Error("no auth"))
+  }
+  socket.credentionals = credentionals
+  next()
+})
