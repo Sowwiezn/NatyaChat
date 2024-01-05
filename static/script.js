@@ -6,12 +6,12 @@ const socket = io({
 const messages = document.getElementById('messages');
 const form = document.getElementById('form');
 const input = document.getElementById('input');
-const logout = document.getElementById('logout')
+const logout = document.getElementById('logout');
 
-logout.addEventListener('click', (e) =>{
-  document.cookie = 'token=; Max-Age=0'
-  location.assign('/login')
-})
+logout.addEventListener('click', (e) => {
+  document.cookie = 'token=; Max-Age=0';
+  location.assign('/login');
+});
 
 socket.on('all_messages', function(msgArray) {
   msgArray.forEach(msg => {

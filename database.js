@@ -25,15 +25,9 @@ dbWrapper
             `CREATE TABLE user(
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 login TEXT,
-                password TEXT
+                password TEXT,
+                salt TEXT
             );`
-        );
-
-        await db.run(
-          `INSERT INTO user (login, password) VALUES 
-          ('admin', 'admin'), 
-          ('JavaScript', 'banana'), 
-          ('user1', 'password1');`
         );
 
         await db.run(
@@ -43,7 +37,7 @@ dbWrapper
                 autor INTEGER,
                 FOREIGN KEY(autor) REFERENCES user(user_id)
             );`
-        );s
+        );
       } else {
         console.log(await db.all("SELECT * from user"));
       }
@@ -75,10 +69,11 @@ module.exports = {
     return !!candidate.length;
   },
   addUser: async (user) => {
-    const salt = crypto. randomBytes(16).toString('hex')
-    const password = crypto.pbkdf2Sync(user.password, salt, 1000, 64, `sha512`).toString('hex')
+    const salt = crypto.randomBytes(16).toString('hex'); 
+    // Hashing user's salt and password with 1000 iterations, 
+    const password = crypto.pbkdf2Sync(user.password, salt, 1000, 64, `sha512`).toString(`hex`); 
     await db.run(
-      `INSERT INTO user (login, password, salt) VALUES (?, ?)`,
+      `INSERT INTO user (login, password, salt) VALUES (?, ?, ?)`,
       [user.login, password, salt]
     );
   },
@@ -87,11 +82,12 @@ module.exports = {
     if(!candidate.length) {
       throw 'Wrong login';
     }
-    const {user_id, login, password, salt} = candidate[0]
-    const hash = crypto.pbkdf2Sync(user.password, salt, 1000, 64, `sha512`).toString('hex')
-    if(password !==hash){
-      throw 'Wrom password.'
+    // Такий тип оголошення змінних називається декомпозиція
+    const {user_id, login, password, salt} = candidate[0];
+    const hash = crypto.pbkdf2Sync(user.password, salt, 1000, 64, `sha512`).toString(`hex`); 
+    if(password !== hash) {
+      throw 'Wrong password';
     }
-    return user_id + '.' + candidate[0].login + '.' + crypto.randomBytes(20).toString('hex');
+    return user_id + '.' + login + '.' + crypto.randomBytes(20).toString('hex');
   }
 };
